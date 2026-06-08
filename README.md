@@ -15,13 +15,13 @@ In the circuit diagram (Figure 1) We have two LED and two buttons, the first but
 
 Figure 2 shows the employee and the boss both lit up at the same time.
 
-Pressing the first button will light up the green LED while pressing the second will light up the second LED. Since the boss (red LED) has a higher preemption priority than the employee (green LED). It can interrupt the employee any time. During the loop, the red LED is able to turn on when the second button was pressed. The red LED has overridden the green LED’s loop and turn the red LED on. The boss is superior here.
+Pressing the first button will light up the green LED while pressing the second will light up the second LED. Since the boss (red LED) has a higher preemption priority than the employee (green LED). It can interrupt the employee any time. During the loop, the red LED was able to turn on when the second button was pressed. The red LED had overridden the green LED’s loop and turn the red LED on. The boss was superior here.
 
 <img width="521" height="247" alt="image6" src="https://github.com/user-attachments/assets/f87cd770-a102-4528-b6b8-a0b8c52ac1bc" />
 
 Figure 3 shows the second LED being pressed first and the first LED pressed later.
 
-Despite both buttons being pressed, the green LED does not turn on when it is pressed after the second button. The green LED has to wait for the red LED to finish its loop before interrupting. The employee cannot interrupt the boss. Note that the green LED will still turn on after the red button turns off (loop is over), it means the CPU is just holding on to the first button’s request (not ignoring it).
+Despite both buttons being pressed, the green LED did not turn on when it was pressed after the second button. The green LED had to wait for the red LED to finish its loop before interrupting. The employee could not interrupt the boss. Note that the green LED will still turn on after the red button turns off (loop is over), it means the CPU was just holding on to the first button’s request (not ignoring it).
 
 The downside to this type of interrupt is it relies on the Interrupt Set-Pending Register (ISPR) to record pending event. Thus, even when I pressed the button several times, all of these requests are going to be read as a single interrupt. Therefore, multiple requests will only yield a single interrupt because the CPU is checking the value of the flag that was turned on by NVIC.
 # Primask
@@ -31,8 +31,8 @@ To demonstrate it, we can set put a simple wait for loop inside the primask and 
 
 <img width="477" height="280" alt="image7" src="https://github.com/user-attachments/assets/e5c0ff6a-62f6-44bb-996b-8bca590a9351" />
 
-Figure 4 shows button 2 being pressed after the first button was pressed. However, the red LED does not light up immediately. It only lights up after a few seconds.
+Figure 4 shows button 2 being pressed after the first button was pressed. However, the red LED did not light up immediately. It only lit up after a few seconds.
 
-To prove that the boss is still superior, after the red LED turns off, we can press the second button and see the red LED lights up immediately. This shows that the *__disable_irq()* and *__enable_irq()* primask in action, and the boss’s interrupts are not ignored, but hold off in the pending bit.
+To prove that the boss was still superior, after the red LED had turned off, we were able to press the second button and see the red LED lit up immediately. This showed that the *__disable_irq()* and *__enable_irq()* primask in action, and the boss’s interrupts were not ignored, but was held off in the pending bit.
 
 
